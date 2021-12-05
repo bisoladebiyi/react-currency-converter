@@ -2,8 +2,8 @@ import React from "react";
 
 const LoadingState = () => {
   return (
-    <div className="flex justify-center">
-      <div className="h-screen lg:w-1/2 sm:w-3/4 w-full bg-blue grid place-content-center">
+    <div className="flex justify-center h-full">
+      <div className="lg:w-1/2 sm:w-3/4 w-full bg-blue grid place-content-center">
         <div className="flex w-9 justify-between h-8 relative">
           <div className="w-2 h-8 bg-white bar-1 rounded-sm absolute bottom-0 left-1"></div>
           <div className="w-2 h-8 bg-white bar-2 rounded-sm absolute bottom-0 left-4"></div>

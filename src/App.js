@@ -102,12 +102,12 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="App h-full">
       {isLoading ? (
         <LoadingState />
       ) : (
-        <div className="App flex justify-center">
-          <div className="h-screen lg:w-1/2 sm:w-3/4 w-full ">
+        <div className="flex justify-center h-full">
+          <div className="h-full lg:w-1/2 sm:w-3/4 w-full ">
             <div className="h-2/5 bg-darkWhite text-dark relative">
               {show && (
                 <PopUp
