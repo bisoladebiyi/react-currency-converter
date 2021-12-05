@@ -6,7 +6,9 @@ module.exports = {
       dark: '#00223A',
       darker: '#001B2F',
       white: '#fff',
-      blue: '#98BAE7'
+      darkWhite: '#F7F7F7',
+      blue: '#A4EBF3',
+      darkBlue: '#00B0D7'
 
     },
     extend: {},
