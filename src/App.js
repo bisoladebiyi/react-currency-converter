@@ -9,9 +9,11 @@ function App() {
   const [baseCurrency, setBaseCurrency] = useState("EUR");
   const [newCurrency, setNewCurrency] = useState("USD");
   const [newSelected, setNewSelected] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [ rate, setRate ] =useState(null)
 
   useEffect(() => {
+    setIsLoading(true)
     const url =
       "https://exchange-rates.abstractapi.com/v1/live/?api_key=2014879605254f7b85842a13515cb144&base=" +
       baseCurrency +
@@ -20,24 +22,19 @@ function App() {
     axios
       .get(url)
       .then((response) => {
-        localStorage.setItem(
-          "rate",
-          response.data.exchange_rates[
-            Object.keys(response.data.exchange_rates)[0]
-          ]
-        );
+        setRate(response.data.exchange_rates[
+          Object.keys(response.data.exchange_rates)[0]
+        ])
       })
       .catch(() => console.log("something's wrong"))
       .finally(() => {
         setTimeout(() => {
           setIsLoading(false);
-        }, 1500);
+        }, 1000);
       });
   }, [baseCurrency, newCurrency]);
 
   const selectCurrency = (e) => {
-    const base = document.querySelector(".base");
-    const newVal = document.querySelector(".newVal");
     const btnClass = e.target.className;
     setShow(true);
     if (btnClass.includes("new-btn")) {
@@ -45,8 +42,6 @@ function App() {
     } else {
       setNewSelected(false);
     }
-    base.innerText = "0";
-    newVal.innerText = "0";
   };
   const closePopUp = () => {
     setShow(false);
@@ -69,7 +64,7 @@ function App() {
     }
   };
   const getValue = (e) => {
-    const rate = localStorage.getItem("rate");
+    // const rate = localStorage.getItem("rate");
     const base = document.querySelector(".base");
     const newVal = document.querySelector(".newVal");
     if (base.innerText === "0") {
@@ -81,7 +76,7 @@ function App() {
     newVal.innerText = value.toFixed(3);
   };
   const erase = () => {
-    const rate = localStorage.getItem("rate");
+    // const rate = localStorage.getItem("rate");
     const base = document.querySelector(".base");
     const newVal = document.querySelector(".newVal");
     if (base.innerText !== "0") {
