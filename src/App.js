@@ -10,23 +10,27 @@ function App() {
   const [newCurrency, setNewCurrency] = useState("USD");
   const [newSelected, setNewSelected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [ rate, setRate ] =useState(null)
+  const [rate, setRate] = useState(null);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
+
     const url =
-      "https://exchange-rates.abstractapi.com/v1/live/?api_key=2014879605254f7b85842a13515cb144&base=" +
+      `https://exchange-rates.abstractapi.com/v1/live/?api_key=${process.env.REACT_APP_API_KEY}&base=` +
       baseCurrency +
       "&target=" +
       newCurrency;
+
     axios
       .get(url)
       .then((response) => {
-        setRate(response.data.exchange_rates[
-          Object.keys(response.data.exchange_rates)[0]
-        ])
+        setRate(
+          response.data.exchange_rates[
+            Object.keys(response.data.exchange_rates)[0]
+          ]
+        );
       })
-      .catch(() => console.log("something's wrong"))
+      .catch((e) => console.log(e))
       .finally(() => {
         setTimeout(() => {
           setIsLoading(false);
@@ -43,9 +47,11 @@ function App() {
       setNewSelected(false);
     }
   };
+
   const closePopUp = () => {
     setShow(false);
   };
+
   const changeCurrency = (e, newSelect) => {
     if (newSelect) {
       if (e.target.outerText === baseCurrency) {
@@ -63,8 +69,8 @@ function App() {
       }
     }
   };
+
   const getValue = (e) => {
-    // const rate = localStorage.getItem("rate");
     const base = document.querySelector(".base");
     const newVal = document.querySelector(".newVal");
     if (base.innerText === "0") {
@@ -75,8 +81,8 @@ function App() {
     const value = Number(base.innerText) * rate;
     newVal.innerText = value.toFixed(3);
   };
+
   const erase = () => {
-    // const rate = localStorage.getItem("rate");
     const base = document.querySelector(".base");
     const newVal = document.querySelector(".newVal");
     if (base.innerText !== "0") {
@@ -89,6 +95,7 @@ function App() {
       newVal.innerText = "0";
     }
   };
+
   const clearValue = () => {
     const base = document.querySelector(".base");
     const newVal = document.querySelector(".newVal");
